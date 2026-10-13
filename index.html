@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,29 +11,60 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* SPA View Switching */
+    .page-view {
+      display: none;
+      min-height: calc(100vh - 160px);
+      padding-top: 50px;
+      padding-bottom: 70px;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    #home.page-view.active {
+      display: grid;
+      min-height: 500px;
+      padding-top: 90px;
+      padding-bottom: 85px;
+    }
+
+    .main-nav a.nav-active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .page-view.section-wrap {
+      border-top: none;
+    }
+  </style>
 </head>
 <body>
 
   <header class="topbar">
-    <a class="brand" href="#home">VS<span>.</span></a>
+    <a class="brand" href="#home" data-target="home">VS<span>.</span></a>
 
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
+      <a href="#home" class="nav-link nav-active" data-target="home">Home</a>
+      <a href="#about" class="nav-link" data-target="about">About</a>
+      <a href="#skills" class="nav-link" data-target="skills">Skills</a>
+      <a href="#projects" class="nav-link" data-target="projects">Projects</a>
+      <a href="#education" class="nav-link" data-target="education">Education</a>
     </nav>
 
     <a class="contact-button" href="mailto:your-email@example.com">Let's connect <i class="fas fa-arrow-up-right-from-square"></i></a>
   </header>
 
   <main>
-    <section class="hero section-wrap" id="home">
+    <!-- HOME PAGE VIEW -->
+    <section class="hero section-wrap page-view active" id="home">
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot"></span> COMPUTER SCIENCE ENGINEERING STUDENT</p>
 
-        <h1>Upadhye Varun<br><span>Santosh.</span></h1>
+        <h1>U p a d h y e    V a r u n    S a n t o s h</h1>
 
         <h2>Turning data into ideas.<br>Ideas into intelligent systems.</h2>
 
@@ -45,8 +75,8 @@
         </p>
 
         <div class="hero-actions">
-          <a class="button button-primary" href="#projects">Explore my work <i class="fas fa-arrow-down"></i></a>
-          <a class="button button-outline" href="#about">A little about me</a>
+          <a class="button button-primary nav-link" href="#projects" data-target="projects">Explore my work <i class="fas fa-arrow-right"></i></a>
+          <a class="button button-outline nav-link" href="#about" data-target="about">A little about me</a>
         </div>
 
         <div class="social-row">
@@ -76,7 +106,8 @@
       </div>
     </section>
 
-    <section class="section-wrap intro-strip" id="about">
+    <!-- ABOUT PAGE VIEW -->
+    <section class="section-wrap intro-strip page-view" id="about">
       <div class="section-heading">
         <p class="eyebrow">01 / ABOUT ME</p>
         <h2>A student who likes<br>understanding how things work.</h2>
@@ -104,7 +135,8 @@
       </div>
     </section>
 
-    <section class="section-wrap skills-section" id="skills">
+    <!-- SKILLS PAGE VIEW -->
+    <section class="section-wrap skills-section page-view" id="skills">
       <div class="section-heading">
         <p class="eyebrow">02 / TOOLKIT</p>
         <h2>Tools I work with.</h2>
@@ -142,7 +174,8 @@
       </div>
     </section>
 
-    <section class="section-wrap projects-section" id="projects">
+    <!-- PROJECTS PAGE VIEW -->
+    <section class="section-wrap projects-section page-view" id="projects">
       <div class="section-heading">
         <p class="eyebrow">03 / SELECTED WORK</p>
         <h2>Projects and experiments.</h2>
@@ -199,7 +232,8 @@
       </article>
     </section>
 
-    <section class="section-wrap education-section" id="education">
+    <!-- EDUCATION PAGE VIEW -->
+    <section class="section-wrap education-section page-view" id="education">
       <div class="section-heading">
         <p class="eyebrow">04 / EDUCATION</p>
         <h2>Building the foundations.</h2>
@@ -220,21 +254,76 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="section-wrap closing-section" id="contact">
-      <p class="eyebrow">05 / GET IN TOUCH</p>
-      <h2>Good ideas start<br>with a conversation.</h2>
-      <p>Interested in data, machine learning, or building useful software? Let's connect.</p>
-      <a class="button button-primary" href="mailto:your-email@example.com">Contact me <i class="fas fa-arrow-up-right-from-square"></i></a>
+      <div class="closing-section" style="border-top: none; margin-top: 40px;">
+        <p class="eyebrow">05 / GET IN TOUCH</p>
+        <h2>Good ideas start<br>with a conversation.</h2>
+        <p>Interested in data, machine learning, or building useful software? Let's connect.</p>
+        <a class="button button-primary" href="mailto:your-email@example.com">Contact me <i class="fas fa-arrow-up-right-from-square"></i></a>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <p>© <span id="year"></span> Upadhye Varun Santosh</p>
-    <a href="#home">Back to top ↑</a>
+    <a href="#home" class="nav-link" data-target="home">Back to top ↑</a>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Set dynamic year in footer
+    const yearEl = document.getElementById("year");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    // Switch between pages in a single file
+    function showPage(pageId) {
+      const views = document.querySelectorAll(".page-view");
+      const navLinks = document.querySelectorAll(".main-nav a");
+
+      // Hide all pages, show the selected one
+      views.forEach((view) => {
+        if (view.id === pageId) {
+          view.classList.add("active");
+        } else {
+          view.classList.remove("active");
+        }
+      });
+
+      // Update active nav styling
+      navLinks.forEach((link) => {
+        if (link.getAttribute("data-target") === pageId) {
+          link.classList.add("nav-active");
+        } else {
+          link.classList.remove("nav-active");
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    // Handle clicks across navigation buttons and links
+    document.querySelectorAll("[data-target]").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("data-target");
+        if (targetId) {
+          window.location.hash = targetId;
+          showPage(targetId);
+        }
+      });
+    });
+
+    // Handle browser back/forward buttons and initial hash loading
+    window.addEventListener("load", () => {
+      const initialPage = window.location.hash.replace("#", "") || "home";
+      showPage(initialPage);
+    });
+
+    window.addEventListener("hashchange", () => {
+      const currentPage = window.location.hash.replace("#", "") || "home";
+      showPage(currentPage);
+    });
+  </script>
 </body>
 </html>
